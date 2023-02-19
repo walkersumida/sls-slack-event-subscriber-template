@@ -1,0 +1,14 @@
+{
+  "name": "serverless-framework-sample",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "sls": "serverless"
+  },
+  "author": "walkersumida",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless": "^3.27.0"
+  }
+}

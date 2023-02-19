@@ -1,0 +1,30 @@
+run:
+  allow-parallel-runners: true
+
+issues:
+  fix: true
+
+linters:
+  enable:
+    - typecheck
+    - unused
+    - gocritic
+    - stylecheck
+    - sqlclosecheck
+    - nilerr
+    - gosec
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - gci
+    - exhaustive
+    - exportloopref
+    - gofmt
+
+linters-settings:
+  gci:
+    sections:
+      - standard
+      - default

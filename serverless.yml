@@ -1,0 +1,50 @@
+service: ${env:SERVICE_NAME}
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: go1.x
+
+  stage: ${env:STAGE}
+  region: ${env:AWS_REGION}
+
+  logRetentionInDays: 1
+
+  environment:
+    INVOKED_FUNCTION_NAME: ${env:INVOKED_FUNCTION_NAME}
+    SLACK_ACCESS_TOKEN: ${env:SLACK_ACCESS_TOKEN}
+    SLACK_SIGNING_SECRET: ${env:SLACK_SIGNING_SECRET}
+    SLACK_VERIFICATION_TOKEN: ${env:SLACK_VERIFICATION_TOKEN}
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "lambda:InvokeFunction"
+          Resource:
+            - ${env:AWS_RESOURCE}
+
+  httpApi:
+    cors:
+      allowedOrigins:
+        - "*"
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+
+package:
+  patterns:
+    - "!./**"
+    - ./bin/**
+
+functions:
+  eventReceiver:
+    handler: bin/event/receiver
+    events:
+      - httpApi:
+          path: /event/receiver
+          method: post
+  eventAction:
+    handler: bin/event/action
