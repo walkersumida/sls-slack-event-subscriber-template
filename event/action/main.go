@@ -16,7 +16,7 @@ func Handler(ctx context.Context, input *slackevents.AppMentionEvent) {
 	_, _, err := cli.PostMessage(
 		input.Channel,
 		slack.MsgOptionText(
-			"RE: "+removeMention(input.Text), false,
+			"RE: "+textWithMentionsRemoved(input.Text), false,
 		),
 	)
 	if err != nil {
@@ -24,9 +24,9 @@ func Handler(ctx context.Context, input *slackevents.AppMentionEvent) {
 	}
 }
 
-func removeMention(msg string) string {
+func textWithMentionsRemoved(txt string) string {
 	re := regexp.MustCompile("<@.+?>")
-	return re.ReplaceAllString(msg, "")
+	return re.ReplaceAllString(txt, "")
 }
 
 func main() {
