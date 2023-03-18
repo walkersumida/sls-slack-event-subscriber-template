@@ -9,6 +9,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "serverless": "^3.27.0"
+    "serverless": "^3.27.0",
+    "serverless-deployment-bucket": "^1.6.0"
   }
 }
