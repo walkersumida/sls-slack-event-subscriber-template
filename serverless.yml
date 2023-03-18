@@ -9,6 +9,10 @@ provider:
   stage: ${env:STAGE}
   region: ${env:AWS_REGION}
 
+  deploymentBucket:
+    name: "sls-deployment-bucket-${env:SERVICE_NAME}-${env:STAGE}"
+    serverSideEncryption: AES256
+
   logRetentionInDays: 1
 
   environment:
@@ -34,10 +38,17 @@ provider:
         - Content-Type
         - Authorization
 
+custom:
+  deploymentBucket:
+    blockPublicAccess: true
+
 package:
   patterns:
     - "!./**"
     - ./bin/**
+
+plugins:
+  - serverless-deployment-bucket
 
 functions:
   eventReceiver:
